@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int canBeTypedWords(string text, string brokenLetters) {
+        // Step 1: Put all broken letters into a set for fast lookup
+        unordered_set<char> broken(brokenLetters.begin(), brokenLetters.end());
+
+        int cnt = 0;  // to keep track of how many words can be typed
+
+        // Step 2: Use stringstream to split the sentence into words
+        stringstream ss(text);
+        string word;
+
+        // Step 3: Check each word one by one
+        while (ss >> word) {
+            bool valid = true;  // assume the word is valid initially
+
+            // Step 4: Check if word contains any broken letter
+            for (char c : word) {
+                if (broken.count(c)) {  // broken letter found
+                    valid = false;
+                    break;  // no need to check further
+                }
+            }
+
+            // Step 5: If word has no broken letters, count it
+            if (valid) cnt++;
+        }
+
+        return cnt;
+    }
+};
